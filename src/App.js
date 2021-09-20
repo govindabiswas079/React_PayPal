@@ -1,24 +1,22 @@
-import React, { useState } from "react";
-import "./App.css";
-import PayPal from "./components/PayPal";
+import { Route, Switch } from 'react-router-dom';
 
-function App() {
-  const [checkout, setCheckOut] = useState(false);
+import { GlobalProvider } from './context/GlobalState';
 
+import { Home, AddEmployee, EditEmployee } from './components';
+
+const App = () => {
   return (
-    <div className="App">
-      {checkout ? (
-        <PayPal />
-      ) : (
-        <button
-          onClick={() => {
-            setCheckOut(true);
-          }}
-        >
-          Checkout
-        </button>
-      )}
-    </div>
+    <>
+      <GlobalProvider>
+        <div className="App" style={{ maxWidth: 1040, margin: '0 auto' }}>
+          <Switch>
+            <Route path="/" component={Home} exact />
+            <Route path="/add" component={AddEmployee} exact />
+            <Route path="/edit/:id" component={EditEmployee} exact />
+          </Switch>
+        </div>
+      </GlobalProvider>
+    </>
   );
 }
 
